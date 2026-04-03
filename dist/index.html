@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NICU Dose Helper</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">NICU Dose Helper</p>
+          <h1>Fast medicine maths, with the assumptions left visible.</h1>
+          <p class="hero-text">
+            Prototype calculator for bedside double-checking. This does not replace the drug chart,
+            consultant instructions, pharmacy guidance, renal dosing review, or independent nurse check.
+          </p>
+        </div>
+        <div class="hero-card">
+          <p class="hero-card-label">Loaded now</p>
+          <p class="hero-card-title">Cefotaxime</p>
+          <p class="hero-card-meta">500 mg vial • default local concentration 250 mg/mL</p>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="panel controls-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Inputs</p>
+            <h2>Patient + prep</h2>
+          </div>
+
+          <label class="field">
+            <span>Medicine</span>
+            <select id="medicine"></select>
+          </label>
+
+          <label class="field">
+            <span>Age band</span>
+            <select id="ageBand"></select>
+          </label>
+
+          <label class="field">
+            <span>Weight (kg)</span>
+            <input id="weightKg" type="number" min="0" step="0.01" inputmode="decimal" placeholder="e.g. 2.8" />
+          </label>
+
+          <fieldset class="toggle-group">
+            <legend>Severity</legend>
+            <label class="toggle-option">
+              <input type="radio" name="severity" value="standard" checked />
+              <span>Standard infection</span>
+            </label>
+            <label class="toggle-option">
+              <input type="radio" name="severity" value="severe" />
+              <span>Severe / meningitis</span>
+            </label>
+          </fieldset>
+
+          <label class="field">
+            <span>Working concentration (mg/mL)</span>
+            <input
+              id="concentrationMgMl"
+              type="number"
+              min="0"
+              step="0.1"
+              inputmode="decimal"
+              placeholder="250"
+            />
+            <small>Editable because local preparation protocols and manufacturers can differ.</small>
+          </label>
+
+          <div class="button-row">
+            <button id="copyLinkButton" type="button">Copy share link</button>
+            <button id="resetButton" class="secondary" type="button">Reset</button>
+          </div>
+
+          <div class="warning-banner">
+            <strong>Safety stop:</strong>
+            <span>Volume is shown without automatic rounding. Follow local policy for rounding, dilution, route, and final administration volume.</span>
+          </div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Result</p>
+            <h2>Dose summary</h2>
+          </div>
+
+          <div id="errorState" class="state-box state-box-error" hidden></div>
+
+          <div id="resultsContent" class="results-grid">
+            <article class="result-card primary-card">
+              <p class="result-label">Per dose</p>
+              <p id="doseMg" class="result-value">-</p>
+              <p id="doseMgPerKg" class="result-meta">-</p>
+            </article>
+
+            <article class="result-card">
+              <p class="result-label">Draw up</p>
+              <p id="drawUpMl" class="result-value">-</p>
+              <p id="drawUpMeta" class="result-meta">-</p>
+            </article>
+
+            <article class="result-card">
+              <p class="result-label">Frequency</p>
+              <p id="frequencyText" class="result-value">-</p>
+              <p id="dosesPerDayText" class="result-meta">-</p>
+            </article>
+
+            <article class="result-card">
+              <p class="result-label">Daily total</p>
+              <p id="dailyTotal" class="result-value">-</p>
+              <p id="dailyTotalMeta" class="result-meta">-</p>
+            </article>
+          </div>
+
+          <div class="audit-box">
+            <p class="audit-title">Calculation audit</p>
+            <p id="auditLineOne" class="audit-line">Enter weight to calculate.</p>
+            <p id="auditLineTwo" class="audit-line">The concentration field stays visible so the assumption can be checked.</p>
+            <p id="auditLineThree" class="audit-line">-</p>
+          </div>
+
+          <div id="maxWarning" class="state-box state-box-warning" hidden></div>
+        </section>
+
+        <section class="panel notes-panel">
+          <div class="panel-head">
+            <p class="panel-kicker">Local sheet</p>
+            <h2>Reference loaded into this prototype</h2>
+          </div>
+
+          <div id="referenceBlock" class="reference-block"></div>
+          <div id="documentationBlock" class="reference-block documentation-block"></div>
+          <div id="limitationsBlock" class="reference-block limitations-block"></div>
+
+          <div class="source-note">
+            <p class="source-note-title">Important note</p>
+            <p>
+              This prototype is intentionally limited to the details visible in your uploaded cefotaxime card.
+              External product labels and formularies can show different preparation concentrations, so this app
+              keeps concentration editable and should be validated against your unit guideline before clinical use.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

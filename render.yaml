@@ -1,0 +1,6 @@
+services:
+  - type: web
+    runtime: static
+    name: ruben-med
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist

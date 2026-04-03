@@ -1,0 +1,11 @@
+{
+  "name": "ruben-med",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "npm run build && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.2"
+  }
+}
